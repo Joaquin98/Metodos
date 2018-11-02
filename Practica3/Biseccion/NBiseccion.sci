@@ -1,41 +1,31 @@
-function y = a(x)
-    y = sin(x) - ((x*x)/2)
-endfunction
-
-function y = b(x)
-    y = %e **(-x) - (x**4)
-endfunction
-
-function y = c(x)
-    y = log2(x) + 1 - x
-endfunction
-
-function y = f(x)
-    y = (x**2)/4 - sin(x)
-endfunction
+// Biseccion : 
+// - Converge siempre, pero lento.
+// - Error Acotado Garantizado.
+// - Velocidad de Convergencia Garantizada.
 
 
-function y = raizBiseccion(a,b,f,t,m)
+// - a y b extremos tal que f(a)f(b) < 0
+// - f: función continua 
+// - e: tolerancia del error en x , e > 0
+// - it: cantidad maxima de iteraciones
+// - it < 0 lo desactiva.
+
+function y = raiz_biseccion(a,b,f,e,it)
     c = (a+b)/2
-    while b-c>t & m 
+    cont = 0
+    while abs(b-c) > e && cont <> it 
          r = f(c)
+         
          if r == 0 then break
          end
-         if r * f(b)<0 then  a = c
+         
+         if r * f(b) < 0 then  a = c
          else b = c
          end
+         
          c = (a+b)/2
-         m = m - 1
+         cont = cont + 1
     end
     y = c 
 endfunction
 
-
-
-function y = d(x)
-    y = x**2 - 2*x - 3
-endfunction
-
-mprintf("%f",raizBiseccion(2,4,d,10**(-2),10))
-x = linspace(-10,10,1000)
-//plot2d(x,c(x))
