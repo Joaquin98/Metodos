@@ -5,15 +5,21 @@
 
 // - a y b extremos tal que f(a)f(b) < 0
 // - f: función continua 
-// - e: tolerancia del error en x , e > 0
+// - ex: tolerancia del error en x , e > 0
+// - ef: tolerancia del error en f(x) , e > 0
 // - it: cantidad maxima de iteraciones
 // - it < 0 lo desactiva.
 
-function y = raiz_falsa_posicion(a,b,f,e,it)
+function y = raiz_falsa_posicion(a,b,f,ex,ef,it)
+    
+    if(f(a)*f(b) >= 0)
+       mprintf("No se cumple f(a)f(b) < 0.\n") 
+    end
     
     c = b - f(b) * ((b-a)/(f(b)-f(a)))
     cont = 0
-    while abs(b-c) > e && cont <> it 
+    
+    while max(abs(a-c),abs(b-c)) > ex & abs(f(c)) > ef & cont <> it 
          r = f(c)
          
          if r == 0 then break
@@ -29,6 +35,11 @@ function y = raiz_falsa_posicion(a,b,f,e,it)
     y = c 
     
 endfunction
+
+
+
+
+// -------------------- EJEMPLOS ----------------------------- //
 
 
 // a(x) = sen(x) - x^2/2
@@ -67,7 +78,10 @@ function y = g(x)
     y = (x**2) - 4 - %e**(-x)
 endfunction
 
-mprintf("%f",raiz_falsa_posicion(-2,4,g,10**(-5),100))
+rA = raiz_falsa_posicion(-4,0.5,b,10**(-5),10**(-5),500)
+
+mprintf("Raiz Aproximada: %0.12f\nValor de la funcion en la raiz: %0.12f",rA,b(rA))
+
 
 // Graficar las funciones:
 //x = linspace(-10,10,1000)
