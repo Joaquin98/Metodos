@@ -1,3 +1,31 @@
+// Punto Fijo:
+// - Puede no converger.
+
+// x0: Estimación inicial de la raíz
+// f: funcion a la que se le busca raíz
+// df: derivada de f
+// e: tolerancia
+// it: numero de iteraciones máximas
+// it < 0 lo desactiva
+
+function y = raiz_punto_fijo(x0,f,ex,ef,it)
+    
+    x = f(x0)
+    cont = 0
+    
+    while abs(x-x0) > ex & abs(f(x)) > ef & cont <> it
+        x0 = x
+        x = f(x)   
+    end
+    
+    y = x
+    
+endfunction
+
+
+// -------------------- EJEMPLOS ----------------------------- //
+
+
 function y = a(x)
     y = sin(x) - ((x*x)/2)
 endfunction
@@ -13,36 +41,30 @@ endfunction
 //function y = f(x)
 //    y = (x**2)/4 - sin(x)
 //endfunction
-//
 
 
-function y = puntoFijo(f,x)
-    x0 = x
-    x = f(x)
-    
-    while abs(x-x0) > 10**-5
-        x0 = x
-        x = f(x)   
-    end
-    y = x
-endfunction
+
 
 deff('y = f(x)' , 'y = (%e**x) / 3')
 
-printf("%f\n",puntoFijo(f,0)) 
+rA = raiz_punto_fijo(0,f,10**(-5),10**(-5),100)
+
+mprintf("Raiz Aproximada: %0.12f\nValor de la funcion en la raiz: %0.12f\n",rA,f(rA))
 
 deff('y = g(x)' , 'y = ((%e**x) - x) / 2')
 
-printf("%f\n",puntoFijo(g,0)) 
+rA = raiz_punto_fijo(0,g,10**(-5),10**(-5),100)
+
+mprintf("Raiz Aproximada: %0.12f\nValor de la funcion en la raiz: %0.12f\n",rA,f(rA))
 
 deff('y = h(x)' , 'y = log(3*x)')
 
-printf("%f\n",puntoFijo(h,2.7)) 
+rA = raiz_punto_fijo(2.7,h,10**(-5),10**(-5),100)
+
+mprintf("Raiz Aproximada: %0.12f\nValor de la funcion en la raiz: %0.12f\n",rA,f(rA))
 
 deff('y = s(x)' , 'y = (%e**x) - 2*x')
 
-printf("%f\n",puntoFijo(s,0)) 
+rA = raiz_punto_fijo(0,s,10**(-5),10**(-5),100)
 
-function y = d(x)
-    y = x**2 - 2*x - 3
-endfunction
+mprintf("Raiz Aproximada: %0.12f\nValor de la funcion en la raiz: %0.12f\n",rA,f(rA))
