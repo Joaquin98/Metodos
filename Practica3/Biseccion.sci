@@ -32,6 +32,7 @@ function y = raiz_biseccion(a,b,f,ex,ef,it)
          
          c = (a+b)/2
          cont = cont + 1
+
     end
     y = c 
 endfunction
@@ -39,9 +40,7 @@ endfunction
 
 
 
-// EJEMPLOS //
-
-// --------------------------------------------------------------------- //
+// -------------------- EJEMPLOS ----------------------------- //
 
 
 
@@ -81,8 +80,12 @@ function y = g(x)
     y = (x**2) - 4 - %e**(-x)
 endfunction
 
-mprintf("%f",raiz_biseccion(-2,4,g,10**(-5),100))
+
+rA = raiz_biseccion(-4,0.5,b,10**(-5),10**(-2),100)
+
+mprintf("Raiz Aproximada: %0.12f\nValor de la funcion en la raiz: %0.12f",rA,b(rA))
+
 
 // Graficar las funciones:
-//x = linspace(-10,10,1000)
-//plot2d(x,c(x))
+//x = linspace(-100,100,1000)
+//plot2d(x,b(x))
