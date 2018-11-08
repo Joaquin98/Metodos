@@ -1,5 +1,5 @@
 // Newton Multivariable:
-// - Supongo que converge siempre.
+// - Convergencia: Es un metodo de punto fijo.
 
 deff('y = f1(x)' , 'y = x(1)**2 + x(1)*x(2)**3 - 9')
 deff('y = f2(x)' , 'y = 3*(x(1)**2)*x(2) - 4 - x(2)**3')
