@@ -29,31 +29,18 @@ function y = newton_multivariable(x0,f,J,e,it)
 endfunction
 
 
-
-function y = newton_multivariable_2(fn, X, N)
-    Xn = X;
-
-    mprintf("X0 = %f\n", Xn)
-    for i = 1:N
-      J = numderivative(f, Xn);
-      J = 1/J;
-      y = Xn - J*fn(Xn);
-      Xn = y
-      mprintf("X%d = %0.5f |-| %0.5f\n", i, Xn(1), Xn(2))
-    end
-endfunction
-
 // -------------------- EJEMPLOS ----------------------------- //
 
 
 
 x0 = [1.2,2.5]'
-//fn = [f1,f2]
-//newton_multivariable_2(fn,x0,2)
 
-x = newton_multivariable(x0,fn,J,10*(-2),100)
+rA = newton_multivariable(x0,fn,J,10*(-2),5)
 
-
+mprintf("Raiz Aproximada:")
+disp(rA)
+mprintf("Valor de la funcion en la raiz: ")
+disp(fn(rA))
 
 
 
