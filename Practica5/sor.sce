@@ -25,3 +25,4 @@ endfunction
 //Convergencia
 //(cond necesaria) 0<w<2)
 // Si A es def. pos. => converge para cualquier w \in (0,2)
+
