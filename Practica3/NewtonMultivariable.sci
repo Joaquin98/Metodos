@@ -19,8 +19,8 @@ function y = newton_multivariable(x0,f,J,e,it)
     cant = 0
     while dif > e && cant <> it
         x1 = x0 - (inv(J(x0)) * f(x0))  
+        dif = norm(x1-x0)
         x0 = x1
-        dif = abs(x1-x0)
         cant = cant + 1
     end
     
@@ -35,7 +35,8 @@ endfunction
 
 x0 = [1.2,2.5]'
 
-rA = newton_multivariable(x0,fn,J,10*(-2),5)
+
+rA = newton_multivariable(x0,fn,J,10**(-2),50)
 
 mprintf("Raiz Aproximada:")
 disp(rA)
