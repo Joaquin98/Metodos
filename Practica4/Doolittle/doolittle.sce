@@ -15,8 +15,8 @@ function [L,U] = doolittle (A)
           end
         end    
         // Estamos por debajo de la diagonal, hallamos elemento de L
-        mprintf("ACA %d %d",j,i)
-        disp(U)
+//        mprintf("ACA %d %d",j,i)
+//        disp(U)
         if i==j&U(j,j)==0 then
             mprintf("Matriz no valida, retornando");
             return 0;
