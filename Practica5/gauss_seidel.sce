@@ -29,7 +29,8 @@ function y=gauss_seidel(A,b,t,gap)//t tolerancia
     y = x
    
 endfunction
-//Coverge para todo x_0 si  .A es estrictamente Diag Dom. por filas 
+//Coverge para todo x_0 si: .A es estrictamente Diag Dom. 
+//                                  ó
 //                          .A es definida positiva
 //EJEMPLO CON GAP 3//////////////////////////////
 //N = 500
