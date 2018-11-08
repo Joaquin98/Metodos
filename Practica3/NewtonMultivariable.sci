@@ -5,8 +5,8 @@ deff('y = f1(x)' , 'y = x(1)**2 + x(1)*x(2)**3 - 9')
 deff('y = f2(x)' , 'y = 3*(x(1)**2)*x(2) - 4 - x(2)**3')
 
 function y = fn(x)
-    y(1) = f1(x(1),x(2))
-    y(2) = f2(x(1),x(2))
+    y(1) = f1(x)
+    y(2) = f2(x)
 endfunction
 
 function y = J(x)
@@ -18,11 +18,13 @@ function y = newton_multivariable(x0,f,J,e,it)
     dif = e + 1
     cant = 0
     while dif > e && cant <> it
-        x1 = x0 - inv(J(x0)) * f(x0)  
+        x1 = x0 - (inv(J(x0)) * f(x0))  
         x0 = x1
         dif = abs(x1-x0)
         cant = cant + 1
     end
+    
+    y = x1
     
 endfunction
 
@@ -45,11 +47,11 @@ endfunction
 
 
 
-x0 = [1.2,2.5]
+x0 = [1.2,2.5]'
 //fn = [f1,f2]
 //newton_multivariable_2(fn,x0,2)
 
-newton_multivariable(x0,fn,J,10*(-2),100)
+x = newton_multivariable(x0,fn,J,10*(-2),100)
 
 
 
