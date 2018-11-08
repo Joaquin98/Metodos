@@ -23,3 +23,6 @@ function y = jacobi(A,b,t)//t tolerancia
     printf("Cantidad de operaciones %d\n",k)
     y = x
 endfunction
+//Convergenciua:
+//(condicion suficiente) A es estrictamente diag dom.
+//(cond nec. y suficiente) El radio espectral de (inv(D)*(L+U)) < 1
