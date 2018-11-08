@@ -1,0 +1,417 @@
+\documentclass[a4paper]{article}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{vmargin}
+
+\setpapersize{A4}
+\setmargins{1.5cm}       % margen izquierdo
+{1.5cm}                        % margen superior
+{18cm}                      % anchura del texto
+{23.42cm}                    % altura del texto
+{10pt}                           % altura de los encabezados
+{1cm}                           % espacio entre el texto y los encabezados
+{0pt}                             % altura del pie de página
+{2cm}                           % espacio entre el texto y el pie de página
+\setlength{\parindent}{0cm}
+
+\title{Resumen de definiciones y condiciones \'utiles de num\'erico.}
+
+\author{Garchorin!}
+
+\date{\today}
+
+\begin{document}
+\maketitle
+
+
+\section{B\'usqueda de ra\'ices - (Pr\'actica 3)}
+
+Notaremos $x*$ a el resultado buscado (en este caso las raices)
+
+\subsection{M\'etodo de la bisecci\'on}
+
+
+Sea f una funci\'on cont'inua en el intervalo [$a_k$, $b_k$], donde $f(a_k)f(b_k) < 0$ (es decir, tienen distinto signo), entonces f tiene una ra\'iz en el intervalo ($a_k$, $b_k$).
+La idea es agarrar el punto medio $m_k = (a_k + b_k)/2$ y verificar 3 cosas:
+
+\begin{itemize}
+\item Si $m_k \approx x*$ dependiendo el error que queremos terminamos o no, sino
+\item $x* \in (a_k, m_k)$
+\item $x* \in (m_k, b_k)$
+\end{itemize}
+
+\noindent Si se dan alguna de las \'ultimas dos opciones, se vuelve a iterar utilizando el nuevo intervalo.
+
+\subsection{M\'etodo de la secante}
+
+Sea f una funcion a la que le queremos encontrar las raices, dados dos puntos iniciales $x_0$ y $x_1$, trazamos una secante en los puntos formados por ($x_0$, $f(x_0$)), ($x_1$, $f(x_1$)), para obtener un nuevo punto $x_2$, el cual es determinado por la interecci\'on del eje x con la recta secante recien trazada. En la siguiente iteraci\'on, se trazar\'a una secanta entre los puntos ($x_1$, $f(x_1$)), ($x_2$, $f(x_2$)).
+
+
+\subsection{M\'etiodo del punto fijo}
+
+Los m\'etodos vistos se aplican a la soluci\'on de la ecuación $f(x) = 0$. El m\'etodo de punto fijo sirve para resolver la ecuación $g(x) = x$.
+Se busca un $x*$ tal que su imagen, por medio de la funci\'on g, sea el mismo
+x*. Por tal motivo se dice que x* es un punto fijo de la función g. La aplicaci\'on del método es muy sencilla. A partir de un $x_0$ dado, se aplica varias veces la fórmula:
+
+\[x_{k+1} = g(x_k) \]
+
+Se espera que la sucesión \{$x_k$\} construida mediante las iteraciones converja hacia x*.
+
+--
+
+Tenemos f(x) a la cual queremos buscarle la raiz.
+En vez de eso, igualaremos f(x) = 0, y de lo que queda la forma explicita de f(x), despejamos x.
+Esa nueva funcion sera g(x).
+A esta nueva funcion, le queremos buscar el punto fijo, es decir, g(x) = x.
+Notemos que g(x) - x = 0 = f(x).
+Ahora tenemos que hacerle la derivada a g(x) y buscar que |g'(x)| < 1 .
+De ahi, resulta un intervalo donde estara el punto fijo de g(x).
+Ahora a $x_0$ (una de las puntas del intervalo) le aplicaremos el metodo en si, que es $x_i$ = $g(x_{i-1})$.
+Despues de n iteraciones deberiamos llegar al punto fijo de g, que sera la raiz de f.
+
+
+
+
+
+\subsubsection{Teoremas de convergencia del m\'etodo de punto fijo}
+
+\textbf{Teorema 1:} Sea g continuamente diferenciable en el intervalo [a, b] tal que
+\[ g([a, b]) \subseteq [a, b]~(\forall x \in [a, b]~g(x) \in [a, b])\]
+\[ |g'(x)| < 1 ~ \forall x \in [a, b]\]
+Entonces, existe un \'unico x*en $[a,b]$ soluci\'on de x = g(x) y la iteraci\'on de
+punto fijo converge a x* para todo $x_0 \in [a,b]$.\\
+
+
+\noindent \textbf{Teorema 2:} Sea x* soluci\'on de $x = g(x)$, g continuamente diferenciable en un intervalo abierto I tal que  $x* \in I$, $|g'(x*)| < 1$. Entonces, la iteraci\'on de punto fijo converge a x* para todo $x_0$ suficientemente cerca de x*.
+
+\subsection{M\'etodo de Newton (Newton-Raphson)}
+
+Dado $x_0$, se construye la recta tangente en $(x_0,f(x_0))$. El valor de x donde esta recta corta el eje x es el nuevo valor $x_1$. Ahora se construye la recta tangente en el punto $(x_1,f(x_1))$. El punto de corte entre la recta y el eje x determina x2, asi sucesivamente...
+
+En el caso general, dado $x_k$, se construye la recta tangente en el punto $(x_k,f(x_k))$:
+
+\[ y = f'(x_k)(x - x_k) + f(x_k) \] 
+
+Para y = 0, se tiene $x = x_{k + 1}$ (decimos esto porque en la siguiente iteracion buscamos que y = 0):
+
+\[ 0 = f'(xk)(x_{k+1} - xk) + f(xk) \rightarrow x_{k+1} = x_k - \frac{f(x_k)}{f'(x_k)} \]
+
+
+\section{Sistemas de ecuaciones no lineales}
+
+\subsection{Definiciones}
+
+\begin{itemize}
+\item \textbf{Matriz jacobiana}
+
+La matriz jacobiana de la funci\'on $F : R^n \rightarrow R^n $, denotada por $JF(x)$ o por $F'(x)$, es una matriz de tama\'no $n x n$, en la que en la i-\'esima fila est\'an las
+n derivadas parciales de $F_i$
+
+\[\begin{bmatrix}
+\frac{\partial F_1}{\partial x_1} & \frac{\partial F_1}{\partial x_2} & \dotsm & \frac{\partial F_1}{\partial x_n} \\
+\frac{\partial F_2}{\partial x_1} & \frac{\partial F_2}{\partial x_2} & \dotsm & \frac{\partial F_2}{\partial x_n} \\
+\vdots & \vdots & \ddots & \vdots \\
+\frac{\partial F_n}{\partial x_1} & \frac{\partial F_n}{\partial x_2} & \dotsm & \frac{\partial F_n}{\partial x_n} \\
+\end{bmatrix}\]
+\end{itemize}
+
+\subsection{M\'etodo de Newton en $R^n$}
+
+Un sistema de n ecuaciones con n inc\'ognitas se puede escribir de la forma:
+
+\[ F_1(x_1, x_2, ..., x_n) = 0 \]
+\[ F_2(x_1, x_2, ..., x_n) = 0 \]
+\[ \vdots \]
+\[ F_n(x_1, x_2, ..., x_n) = 0 \]
+
+donde cada $F_i$ es una funci\'on de n variables con valor real, o sea, $F_i : R^n \rightarrow
+R$. Denotemos $x = (x_1,x_2,...,x_n)$ y
+
+\[F(x) = \begin{bmatrix}
+F_1(x) \\
+F_2(x) \\
+\vdots \\
+F_n(x)
+\end{bmatrix}\]
+
+La idea es igual a la del m\'etodo de newton en una variable (utilizamos a F(X) de la misma forma, teniendo como F'(x) al Jacobiano), para verlo mejor hacemos un paralelismo de como se van deduciendo las f\'ormulas:\\
+
+\begin{tabular}{ l r }
+  \textbf{Newton en R} &  \textbf{Newton en $R^n$}\\
+  $y = f'(x_k)(x - x_k) + f(x_k)$  &  y = $F(x_k) + F'(x_k)(x - x_k)$ \\
+  ~ & ~ \\
+  Para y = 0 &  ~ \\
+  ~ & ~ \\
+  $0 = f'(xk)(x_{k+1} - xk) + f(xk) \rightarrow$ &  0 = $F(x_k) + F'(x_k)(x_{k+1} - x_k) \rightarrow$\\ 
+  $x_{k+1} = x_k - \frac{f(x_k)}{f'(x_k)}$  & $ x_{k+1} = x_k - F'(x_k)^{-1} F(x_k)$\\
+  
+\end{tabular}
+
+\section{Sistemas de ecuaciones lineales}
+
+\subsection{Definiciones}
+
+\subsubsection{Pivoteo parcial}
+
+\begin{itemize}
+\item Se debe construir una matriz de coeficientes y el vector con los t\'erminos independientes, correspondientes al sistema, y se crea una matriz llamada la matriz aumentada.
+\item Se busca el n\'umero mayor (en valor absoluto) en cada la columna correspondiente a la etapa y se procede a un cambio de filas para ubicar el mayor elegido en la posición correspondiente a la etapa.
+\item Una vez ubicado el n\'umero mayor, se procede al c\'alculo de los multiplicadores correspondientes a la etapa.
+\end{itemize}
+
+Ejemplo: Tenemos la siguiente matriz, y vamos por el segundo paso de la reducci\'on gaussiana:
+\[ A =
+ \begin{bmatrix}
+1 & 7 & 9 & -4 & 3 & \vline & 5 \\
+0 & \textbf{-5} & 6 & -4 & -8 & \vline & -3 \\
+0 & \textbf{6} & -3 & 5 & 2 & \vline & -7 \\
+0 & \textbf{-7} & 7 & -2 & 7 & \vline & 6 \\
+0 & \textbf{-2} & 0 & -6 & 3 & \vline & -5 \\
+\end{bmatrix}\]
+
+Los candidatos corresponden a la columna 2 (marcados en negrita):
+\[ |a_{2,2}| = 5 ~ |a_{2,3}| = 6 ~ |a_{2,4}| = 7 ~ |a_{2,5}| = 2 \]
+
+Como el m\'aximo valor corresponde a $|a_{2,4}| = 7$ que est\'a en la fila 4, se procede a cambiar la fila 2 (la que estamos en el algortimo en este momento) por la 4 y se prosigue de forma normal.
+
+\subsubsection{Autovalores}
+
+Sea $A \in R^{nxn}$ una matriz cuadrada real. Un n\'umero $\lambda$, real o complejo, es un autovalor de A si existe un vector columna real o complejo no nulo $v \in C^{nx1}$ tal que $Av = \lambda v$. En ese caso, se dice que v es un autovector asociado al autovalor $\lambda$.
+
+Se obtienen calculando las ra\'ices del polinomio caracter\'istico de A, donde:
+
+\[ p(\lambda) = det(A - \lambda I) \]
+
+\subsubsection{Matriz Hermitiana}
+
+Una matriz Hermitiana es una matriz cuadrada de elementos complejos (trabajamos solo las reales por ahora) que tiene la caracter\'istica de ser igual a su propia traspuesta conjugada (conjugado es, cambiarle el signo a la parte imaginaria). Es decir, el elemento en la i-\'esima fila y j-\'esima columna es igual al conjugado del elemento en la j-\'esima fila e i-\'esima columna, para todos los índices i y j.
+
+En resumen, para matrices reales, que sea hermitiana es equivalente a que sea sim\'etrica.
+
+\subsubsection{Matriz definida positiva}
+
+Una matriz es definida positiva si es hermitiana y todos sus autovalores son reales y positivos.
+
+
+
+\subsection{M\'etodo de Gauss}
+
+El m\'etodo de Gauss para resolver el sistema $Ax = b$ tiene dos partes; la primera es la triangularizaci\'on del sistema, es decir, por medio de operaciones elementales, se construye un sistema $A'x = b'$, equivalente al primero, tal que A' sea triangular superior. La segunda parte es simplemente la soluci\'on del sistema triangular superior.
+
+\subsection{M\'etodo de Gauss con pivoteo parcial}
+
+En el m\'etodo de Gauss cl\'asico, \'unicamente se intercambian filas cuando el pivote, $a_{k,k}$, es nulo o casi nulo. Como el pivote (el elemento $a_{k,k}$ en la iteraci\'on k) ser\'a divisor para el c\'alculo de $l_{ik}$, y como el error de redondeo o de truncamiento se hace mayor cuando el divisor es cercano a cero, entonces es muy conveniente buscar que el pivote sea grande en valor absoluto. Es decir, hay que evitar los pivotes que sin ser nulos son cercanos a cero.
+
+\subsection{M\'etodo de Gauss-Jordan}
+Aqu\'i, en vez de terminar en el momento que llegamos a una matriz triangular superior, seguimos con el m\'etodo hasta llegar a la identidad. Queda as\'i directamente resuelto el sistema de ecuaciones.
+
+\subsection{Factorizaci\'on LU}
+
+La factorizaci\'on es LU una forma de factorizaci\'on de una matriz como el producto de una matriz triangular inferior (L) y una superior (U). Para realizar esta factorizaci\'on la matriz debe ser no singular (invertible) pues esto nos garantiza su unicidad.
+
+
+La idea es descomponer el sistema en dos subsistemas m\'as sencillos de resolver:
+
+Dada la ecuación matricial
+
+\[ Ax = LUx = b \]
+
+Queremos la solución para un determinando A y b. Los pasos son los siguientes:
+
+\begin{itemize}
+\item Primero, resolvemos $Ly=b$ para y
+\item Segundo, resolvemos $Ux=y$ para x.
+\end{itemize}
+
+N\'otese que ya tenemos las matrices L y U. La ventaja de este m\'etodo es que es computacionalmente eficiente, porque podemos elegir el vector b que nos parezca y no tenemos que volver a hacer la eliminaci\'on de Gauss cada vez.
+
+\subsubsection{Doolittle y Crout}
+
+Llamamos descomposic\'on de Doolittle al caso en que la matriz L es triangular inferior unitaria, es decir, que $l_{i,i} = 1$, $\forall i=1,n$. \\
+
+Llamamos descomposic\'on de Crout al caso en que la matriz U es triangular superior unitaria, es decir, que $u_{i,i} = 1$, $\forall i=1,n$.
+
+
+\subsection{Cholesky}
+
+Este m\'etodo sirve para resolver el sistema $Ax = b$ cuando la matriz A es definida positiva. A puede ser descompuesta como
+
+   \[ A = L L^{T} \]
+
+donde L es una matriz triangular inferior con entradas diagonales estrictamente positivas y $L^{T}$ representa la conjugada traspuesta de L. 
+
+Se puede solucionar Ax = b calculando primero la descomposición de Cholesky $A = LL^{T}$, luego resolviendo $Ly = b$ para y, y finalmente resolviendo $L^{T}x = y$ para x.
+
+\section{Sistemas de ecuaciones lineales - M\'etodos iterativos}
+
+\subsection{Definiciones}
+
+\subsubsection{Normas vectoriales - matriciales}
+
+El concepto de norma corresponde simplemente a la abstracci\'on del concepto de tama\~no de un vector. Consideremos el vector que va de $(0, 0, 0)$ a $(2, 3, -4)$. Su tama\~no o magnitud es simplemente (euclidiana)
+$\sqrt{2^2 + 3 ^ 2 + (-4)^2}$\\
+
+
+Una norma es una funci\'on $\mu : V \rightarrow R$ tal que:
+\begin{itemize}
+\item $\mu(x) \geq 0, \forall x \in V$
+\item $\mu(x) = 0 \Leftrightarrow x = 0$
+\item $\mu(\alpha x) = |\alpha| \mu(x), \forall \alpha \in R, \forall x \in V $
+\item $\mu(x + y) \leq \mu(x) + \mu(y), \forall x, y \in V $
+\end{itemize}
+
+Utilizamos las normas para medir qu\'e tan lejos estamos de la soluci\'on buscada (se va comparando la norma de la soluci\'on en un momento dado con el error prefijado; cuando la norma es menor al error, se para).
+\\
+Normas comunes:
+
+\begin{itemize}
+\item Norma 1 : $\sum_{i = 1}^{n} |v_i|$
+\item Norma 2 (euclidiana) : $(\sum_{i = 1}^{n} v_{i}^{2})^{1/2}$
+\item Norma $\infty$ : $max_{i = 1, n} |v_i|$
+\end{itemize}
+
+Una norma es matricial si, adem\'as de las propiedades usuales de una norma, para cualquier par de matrices A y B, $||AB|| \leq ||A||.||B||$.
+
+Una norma matricial inducida por una norma vectorial se define de varias maneras, todas ellas equivalentes:
+
+\[ ||A|| = sup_{x\neq 0} \frac{||Ax||}{||x||} \]
+
+\[ ||A|| = max_{x\neq 0} \frac{||Ax||}{||x||} \]
+
+\[ ||A|| = sup_{||x|| = 1} ||Ax|| \]
+
+\[ ||A|| = max_{||x|| = 1} ||Ax|| \]
+
+\subsubsection{Diagonal dominante}
+Una matriz es de diagonal estrictamente dominante, cuando lo es por filas o por columnas.
+
+\begin{itemize}
+\item Lo es por filas cuando, para todas las filas, el valor absoluto del elemento de la diagonal de esa fila es estrictamente mayor que la suma de los valores absolutos del resto de elementos de esa fila.
+\item Lo es por columnas cuando, para todas las columnas, el valor absoluto del elemento de la diagonal de esa columna es estrictamente mayor que la suma de los valores absolutos del resto de elementos de esa columna.
+\end{itemize}
+
+\subsubsection{Radio espectral}
+
+Sea A una matriz, el radio espectral $\rho(A)$ es el m\'aximo de los valores absolutos de los autovalores de A.
+
+\subsection{M\'etodo de Gauss-Seidel}
+
+Este m\'etodo puede aplicarse a cualquier sistema de ecuaciones lineales que produzca una matriz cuadrada de coeficientes con los elementos de su diagonal no-nulos. En cada iteraci\'on del m\'etodo de Gauss-Seidel, hay n subiteraciones. En la i-\'esima subiteraci\'on se modifica \'unicamente $x_i$ . Las dem\'as coordenadas no se modifican. El c\'alculo de $x_i$ se hace de tal manera que se satisfaga (en la k-\'esima iteraci\'on): 
+
+\[ x_{i}^{k} = \frac{b_i - (\sum_{j = 1}^{i - 1}a_{i,j}x_{j}^{k} + \sum_{j = i + 1}^{n}a_{i,j}x_{j}^{k - 1})} {a_{i,i}} \]
+
+
+Matricialmente debemos tratar de escribir la matriz A como la suma de una matriz triangular inferior, una diagonal y una triangular superior $A=(L+D+U)$, $D= diag( a_{i,i} )$. Haciendo los despejes necesarios escribimos el método de esta forma
+
+    \[ x^{(k+1)}=-{(L+D)}^{-1}{U}x^{(k)}+{(L+D)}^{-1}b \] 
+
+
+por lo tanto $M=-(L+D)^{-1}U$ y $c=(L+D)^{-1}b$. Decimos que M es la matriz de iteraci\'on del m\'etodo y se puede escribir de la siguiente forma:
+
+    \[ x^{(k+1)}= M x^{(k)}+c \]
+
+
+ La convergencia del método solo se garantiza si:
+\begin{itemize}
+\item \textbf{Teorema 1}: Si A es de diagonal estrictamente dominante por filas, entonces el m\'etodo de Gauss-Seidel converge para cualquier $x_0$ inicial.
+\item \textbf{Teorema 2}: Si A es definida positiva, entonces el m\'etodo de Gauss-Seidel converge para cualquier $x_0$ inicial.
+\end{itemize}
+
+
+\subsection{M\'etodo de Jacobi}
+
+Este m\'etodo se parece al m\'etodo Gauss-Seidel, tambi\'en se utiliza la ecuaci\'on i-\'esima para calcular $x_i$ y el c\'alculo de $x_i$ se hace de la misma forma. Pero un valor reci\'en calculado de $x_i$ no se utiliza inmediatamente. Los valores nuevos de $x_i$ solamente se empiezan a utilizar cuando ya se calcularon todos los n valores $x_i$.
+
+\[ x_{i}^{k} = \frac{b_i - (\sum_{j=1,j\neq i}^{n}a_{i,j}x_{j}^{k - 1})}{a_{i,i}} \]
+
+
+Matricialmente la sucesi\'on se construye descomponiendo la matriz del sistema A en la forma siguiente:
+
+    \[ A = D + L + U \]
+
+donde:
+\begin{itemize}
+\item D, es una matriz diagonal.
+\item L, es una matriz triangular inferior.
+\item U, es una matriz triangular superior.
+\end{itemize}
+
+Partiendo de $Ax = b$, podemos reescribir dicha ecuación como:
+
+    \[ Dx + (L+U)x = b \]
+
+Luego,
+
+  \[ x=D^{-1}[b-L+U)x \]
+
+Si $a_{i,i} \neq 0$ para cada i. Por la regla iterativa, la definici\'on del M\'etodo de Jacobi puede ser expresado de la forma:
+
+   \[ x^{k+1)}=D^{-1} [ b-({L}+{U})x^{(k)} \]
+   
+
+Convergencia:
+
+\begin{itemize}
+\item Si la matriz A es estrictamente diagonal dominante. Adem\'as, puede converger incluso si esta condici\'on no se satisface. (\textbf{condici\'on suficiente})
+\item Si el radio espectral $(\rho)$: $\rho(D^{-1}R) < 1$, siendo R = L + U. (\textbf{condición necesaria y suficiente})
+\end{itemize}
+
+\subsection{M\'etodo de Sobrerrelajaci\'on}
+
+Este m\'etodo, conocido como SOR se puede considerar como una generalizaci\'on del m\'etodo Gauss-Seidel. En el m\'etodo \'unicamente cambia la asignaci\'on, introduciendo un par\'ametro $\omega$:
+
+\[ x_{i}^{k} = \frac{\omega}{a_{i,i}} (b_i - \sum_{j = 1}^{i - 1}a_{i,j}x_{j}^{k} + \sum_{j = i + 1}^{n}a_{i,j}x_{j}^{k - 1}) + (1 - \omega)x_i^{k-1} \]
+
+
+Condiciones de congergencia:
+\begin{itemize}
+\item $0 < \omega < 2$ (\textbf{condici\'on necesaria}).
+\item Si A es definida positiva, entonces coverge para cualquier $\omega \in (0, 2)$
+\end{itemize}
+
+
+\section{Aproximaci\'on de autovalores}
+
+\subsection{Definiciones}
+
+
+\subsection{Teorema de Gerschgorin}
+
+El teorema de Gershgorin es utilizado en \'algebra lineal para encontrar una cota de los autovalores de una matriz compleja (o real) de orden $n$x$n$.
+
+Dada A, se definen los círculos $D_1,...,D_n$ con centro en $a_{ii}$ y radio $r_i = \sum_{j=1,j\neq i}^{n}|a_{ij}|$, el teorema afirma que los autovalores de la matriz A se encuentran en la uni\'on de los $n$ c\'irculos. Adem\'as, cada componente conexa de esa uni\'on contiene tantos autovalores como c\'irculos haya en ella, donde c\'irculos y autovalores son contados con multiplicidad.
+
+
+\subsection{M\'etodo de las potencias}
+
+Es un m\'etodo iterativo que calcula sucesivas aproximaciones a los autovectores y autovalores de una matriz.
+Se usa principalmente para calcular el autovector de mayor autovalor (en valor absoluto) asociado.
+
+Para aplicar el método de las potencias se supone que la matriz A de $n$x$n$ tiene $n$ autovalores $\lambda_1,\lambda_2,...,\lambda_n$ con un conjunto asociado de autovectores linealmente independientes ($v^{(1)},v^{(2)},...,v^{(n)}$). Es más, se supone que A tiene exactamente un autovalor $\lambda_1$ cuya magnitud es la mayor, por lo que $|\lambda_1|>|\lambda_2|\geq|\lambda_3|...\geq|\lambda_n|\geq0$.
+
+Requisito: al escribir el vector inicial en la base {$\lambda_1,\lambda_2,...,\lambda_n$}, el coeficiente de $\lambda_1$ no debe ser nulo.
+
+El m\'etodo converge lentamente y s\'olo puede determinar uno de los autovectores de la matriz (el asociado al autovalor de mayor valor absoluto).
+
+En cada paso $k$, se calcula $x_{k+1} = \frac{Ax_k}{\|Ax_k\|}$. \\
+
+Este m\'etodo puede usarse tambi\'en para calcular el radio espectral de una matriz.
+
+
+
+\section{COSAS QUE NOS FALTAN}
+
+
+1. metodo de la falsa posicion
+
+2. factorizacion A = QR
+
+3. orden de convergencia
+
+
+
+\end{document}
