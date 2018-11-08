@@ -4,16 +4,19 @@
 
 // x0,x1: puntos iniciales
 // f: funcion
-// e: tolerancia en x
+// ex: tolerancia en x
+// ef: tolerancia del error en f(x) , e > 0
 // it: numero de iteraciones máximas
 // it < 0 lo desactiva
 
-function y = raiz_secante(x0,x1,f,e,it)
-    i = 0
-    dif = e + 1
-    while dif > e && i <> it 
+function y = raiz_secante(x0,x1,f,ex,ef,it)
+    cont = 0
+    dif = ex + 1
+    while dif > ex & abs(f(x1)) > ef & cont <> it 
         
-        if(f(x1)-f(x0) == 0) then break
+        if(f(x1)-f(x0) == 0) then 
+            mprintf("Diferencia f(x1)-f(x0) = 0 \n")
+            break
         end
         
         x2 = x1 - f(x1) * ((x1-x0)/(f(x1)-f(x0)))
@@ -22,17 +25,23 @@ function y = raiz_secante(x0,x1,f,e,it)
         x1 = x2
         
         dif = abs(x1-x0)
-        i = i + 1
+        cont = cont + 1
     end
     
     y = x1
     
 endfunction
 
+
+
+
+// -------------------- EJEMPLOS ----------------------------- //
+
+
 function y = d(x)
     y = x**2 - 2*x - 3
 endfunction
 
-printf("%f",raiz_secante(1.5,2.8,d,10**(-5),10))
-x = linspace(-10,10,1000)
-//plot2d(x,c(x))
+rA = raiz_secante(1.5,2.8,d,10**(-5),10**(-5),100)
+
+mprintf("Raiz Aproximada: %0.12f\nValor de la funcion en la raiz: %0.12f",rA,d(rA))
