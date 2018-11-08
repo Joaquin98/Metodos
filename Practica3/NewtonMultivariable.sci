@@ -17,7 +17,7 @@ endfunction
 function y = newton_multivariable(x0,f,J,e,it)
     dif = e + 1
     cant = 0
-    while dif > e && cant <> it
+    while dif > e & cant <> it
         x1 = x0 - (inv(J(x0)) * f(x0))  
         dif = norm(x1-x0)
         x0 = x1
