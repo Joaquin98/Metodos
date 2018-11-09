@@ -20,6 +20,11 @@ function y=gauss_seidel(A,b,t,gap)//t tolerancia
                 if j <> i then s = s + (A(i,j)*x(j))  
                 end
             end
+            if(A(i,i)==0)
+                mprintf("Matriz invalida, Cero en la diagonal")
+                y=[]
+                return
+            end
             x(i) = (1/A(i,i)) * (b(i) - s)
          end
         k = k + 1
