@@ -2,7 +2,7 @@ function y=sor(A,b,t)//t tolerancia
     x = zeros(1,length(b))
     k = 0
     es = max(spec(eye(length(b),length(b))-(diag(diag(A))**-1)*A))
-    w = 2/sqrt(1+sqrt(1-(es**2)))
+    w = 2/(1+sqrt(1-(es**2)))
     delta=t+1
     while k<1000 & t<delta
         aux=x
