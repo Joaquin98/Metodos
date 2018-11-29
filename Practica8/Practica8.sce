@@ -29,6 +29,28 @@ function y = simpson_compuesto(f,a,b,n)
     y = y * h/3
 endfunction
 
+function y = trapecio_doble(f,x1,x2,y1,y2)
+    r1 = (f(x1,y1) + f(x2,y1))*(x2-x1)/2
+    r2 = (f(x1,y2) + f(x2,y2))*(x2-x1)/2
+    y = ((r1+r2)*(y2-y1))/2
+endfunction
+ 
+function y = trapecio_extendida(f,x1,x2,y1,y2,ny,nx)
+    hx = (x2-x1)/nx
+    hy = (y2-y1)/ny
+    y = 0
+    
+    for i = 1:ny
+        for j = 1:nx
+            bloque = trapecio_doble(f,x1+(hx*(j-1)),x1+(hx*j),y1+(hy*(i-1)),y1+(hy*i))
+            y = y + bloque
+            disp(bloque)
+        end
+    end
+endfunction
+
+
+
 // Ejercicio 1
 
 //    deff('y = a(x)','y = log(x)')
@@ -102,8 +124,8 @@ endfunction
 //    printf("Trapecio: %f\nError: %f\nSimpson : %f\nError : %f\n",r1,abs(I-r1),r2,abs(I-r2))
 
 // Ejercicio 5
-
-    deff('y = g(x,y)','sin(x+y)')
-    
-    
+//    deff('r = f(x,y)','r = sin(x+y)')
+//    r = trapecio_extendida(f,0,1,0,2,2,2)
+//    disp(r)
+// Resultado -> 1.6096484
 
