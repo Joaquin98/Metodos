@@ -44,7 +44,6 @@ function y = trapecio_extendida(f,x1,x2,y1,y2,ny,nx)
         for j = 1:nx
             bloque = trapecio_doble(f,x1+(hx*(j-1)),x1+(hx*j),y1+(hy*(i-1)),y1+(hy*i))
             y = y + bloque
-            disp(bloque)
         end
     end
 endfunction
