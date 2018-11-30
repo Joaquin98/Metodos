@@ -48,6 +48,24 @@ function y = trapecio_extendida(f,x1,x2,y1,y2,ny,nx)
     end
 endfunction
 
+ 
+function y = trapecio_extendida_fuciones(f,f1,f2,y1,y2,ny,nx)
+    hy = (y2-y1)/ny
+    y = 0
+    
+    for i = 1:ny
+        ya = y1+(hy*(i-1))
+        yb = y1+(hy*i)
+        x1 = min(f1(ya),f1(yb))
+        x2 = max(f2(ya),f2(yb))
+        hx = (x2-x1)/nx 
+        for j = 1:nx
+            bloque = trapecio_doble(f,x1+(hx*(j-1)),x1+(hx*j),ya,yb)
+            y = y + bloque
+        end
+    end
+endfunction
+
 
 
 // Ejercicio 1
@@ -123,8 +141,17 @@ endfunction
 //    printf("Trapecio: %f\nError: %f\nSimpson : %f\nError : %f\n",r1,abs(I-r1),r2,abs(I-r2))
 
 // Ejercicio 5
+
 //    deff('r = f(x,y)','r = sin(x+y)')
 //    r = trapecio_extendida(f,0,1,0,2,2,2)
 //    disp(r)
 // Resultado -> 1.6096484
 
+// Ejercicio 6
+
+//deff('r = f(x,y)','r = 1')
+//deff('r = f2(y)','r = sqrt(1-(y**2)) + 1')
+//deff('r = f1(y)','r = -1 * sqrt(1-(y**2)) + 1')
+
+//r = trapecio_extendida_fuciones(f,f1,f2,-1,1,100,10)
+//disp(r)
