@@ -167,27 +167,3 @@ endfunction
 //    disp(l*v)
 //    
 //    potencia_autovalor_dif(A1,[5,3,12,122]',10)
-    
-//    function y = autovec(A)
-//        it=100
-//        y=ones(size(A,1),1)
-//        y=[155,154,156,158]'
-//        for i=0:it
-//            aux=A*y
-//            y=aux/norm(aux) 
-//            
-//            lambda=((A*y)/y(1))
-//            lambda=lambda(1)//MAYOR AUTOVALOR
-//            
-//    //        disp(lambda-autovalor,"dif",i,"IT:")
-//        end
-//        disp(y)
-//    endfunction
-//    
-//    v = autovec(A1) //AUTOVECTOR DEL MAYOR AUTOVALOR
-//    lambda=((A1*v)/v(1))
-//    lambda=lambda(1)//MAYOR AUTOVALOR
-//    
-//    disp(lambda)
-//    disp(radio_espectral(A1))
-//
