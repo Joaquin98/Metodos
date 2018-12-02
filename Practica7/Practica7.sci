@@ -1,43 +1,62 @@
 // ------ LAGRANGE ------ 
 
-function y = L(k,x,x0)
+function y = L(k,x,xi)
     y = 1
-    for i = 1:length(x0)
+    for i = 1:length(xi)
         if k<>i
-            y = y * ( (x-x0(i)) / (x0(k)-x0(i)) )
+            y = y * ( (x-xi(i)) / (xi(k)-xi(i)) )
         end
     end
 endfunction
  
-function y = lagrange_poly(x,x0,y0)
+function y = lagrange_poly(x,xi,yi)
     y = 0
-    for i = 1:length(x0)
-        y = y + L(i,x,x0) * y0(i)
+    for i = 1:length(xi)
+        y = y + L(i,x,xi) * yi(i)
     end
 endfunction
 
 // ------ NEWTON ------  
 
-function y = N(x,x0)
+function y = fi(x,xi,varargin)
+    if length(varargin) == 0 then n = length(xi)
+    else n = varargin(1)
+    end
     y = 1
-    for i = 1:length(x0)
-        y = y * (x-x0(i))
+    for i = 1:n
+        y = y * (x-xi(i))
     end
 endfunction
- 
-function y = dN(k,x0)
+
+function y = dfi(k,xi)
     y = 1
-    for i = 1:length(x0)
+    for i = 1:length(xi)
         if i<>k
-            y = y * (x0(k) - x0(i))
+            y = y * (xi(k) - xi(i))
         end
     end
 endfunction
- 
-function y = newton_poly(x,x0,y0)
-    y = 0
-    for i = 1:length(x0)
-        y = y + ( N(x) / ( (x-x0(i)) * dN(i,x0) ) ) * y0(i)
+
+function D = diferencias_divididas(xi,yi)
+    n = length(yi)
+    for i = 1:n
+        D(i,1) = yi(i)
+    end
+    
+    for i = 2:n
+        for j = 1:n-(i-1)
+            D(j,i) = (D(j+1,i-1) - D(j,i-1)) / ( xi(j+i-1) - xi(j) )
+        end
+    end
+endfunction
+
+function y = newton_poly(x,xi,yi)
+    D = diferencias_divididas(xi,yi)
+    n = length(xi)
+    y = yi(1)
+
+    for i = 2:n
+        y = y + fi(x,xi,i-1)*D(1,i) 
     end
 endfunction
 
@@ -85,7 +104,46 @@ endfunction
 //    printf("Error Newton : %f\n",abs(r-1.3956612425))
 //    r = lagrange_poly(1/3,xi,yi)
 //    printf("Error Lagrange : %f\n",abs(r-1.3956612425))
-//    // Son el mismo polinomio por lo tanto mismo error.
+//    // Mismo error ya que es el mismo polinomio.
+//
+//    cotaErrorC = (fi(1/3,xi)/factorial(4))*1.8221    
+//    cotaErrorL = abs(fi(1/3,xi(2:3))/factorial(2)*1.4918)
+//    
+//    printf("Cota del error lineal: %f\n",cotaErrorL)
+//    printf("Cota del error cubica: %f",cotaErrorC) 
+
+// Ejercicio 2
+
+//     Al ver la formula del error para f(x)-P(x), vemos que f(n+1)(x) = 0
+//     ya que el grado de f es <= n por lo tando el error es 0 para todo x
+//     con lo cual la inrtepolación es exacta.
+
+// Ejercicio 5
+
+////    f(0) = 2*0 + 1 = 1
+////    f(1) = 2*1 + 1 = 3
+////    f(2) = 2 + 1 = 3
+////    
+////    P1,2,3(2.5) = 3
+////    Entonces:
+////    
+////    ((2.5-2)*(2.5-3)*3)/((1-2)*(1-3)) + ((2.5-1)*(2.5-3)*3)/((2-1)*(2-3))
+////    + ((2.5-1)*(2.5-2)*f(3)/((3-1)*(3-2)) =  3
+////    
+////    -3/8 + 18/8 + 3/8 * f(3) = 24/8 => f(3) = 3
+//    
+//    xi = [0,1,2,3]
+//    yi = [1,3,3,3]
+//    
+//    disp(lagrange_poly(2.5,xi,yi))
+
+// Ejercicio 6
+    
+//    xi = [-1,1,2,4]
+//    deff("y = f(x)","y = 2 + fi(x,xi,1) + -2 * fi(x,xi,2) + 2 * fi(x,xi,3)")
+//    r = f(0)
+//    cotaErrorC = abs((fi(0,xi)/factorial(4))*33.6)
+    
     
 // Ejercicio 7
 
@@ -152,3 +210,63 @@ endfunction
 //    plot(x,f3(x))
 //    scatter(xi,yi,"red")
 //    printf("Error Grado 3: %f\n",norm(f3(xi)-yi))
+
+// Ejercicio 9
+
+//    deff("y = f(x)","y = 1/(1+x**2)")
+//    
+//    xi = linspace(-5,5,2)'
+//    yi = f(xi)'
+//    subplot(231)
+//    x = linspace(-5,5,50)
+//    plot(x,lagrange_poly(x,xi,yi))
+//    scatter(xi,yi,"red")
+//    
+//    xi = linspace(-5,5,4)'
+//    yi = f(xi)'
+//    subplot(232)
+//    x = linspace(-5,5,50)'
+//    for i = 1:length(x)
+//        y(i) = lagrange_poly(x(i),xi,yi)
+//    end
+//    plot(x,y)
+//    scatter(xi,yi,"red")
+//    
+//    xi = linspace(-5,5,6)'
+//    yi = f(xi)'
+//    subplot(233)
+//    x = linspace(-5,5,50)'
+//    for i = 1:length(x)
+//        y(i) = lagrange_poly(x(i),xi,yi)
+//    end
+//    plot(x,y)
+//    scatter(xi,yi,"red")    
+//    
+//    xi = linspace(-5,5,10)'
+//    yi = f(xi)'
+//    subplot(234)
+//    x = linspace(-5,5,50)'
+//    for i = 1:length(x)
+//        y(i) = lagrange_poly(x(i),xi,yi)
+//    end
+//    plot(x,y)
+//    scatter(xi,yi,"red")
+//        
+//    xi = linspace(-5,5,14)'
+//    yi = f(xi)'
+//    subplot(235)
+//    x = linspace(-5,5,50)'
+//    for i = 1:length(x)
+//        y(i) = lagrange_poly(x(i),xi,yi)
+//    end
+//    plot(x,y)
+//    scatter(xi,yi,"red")
+//    
+//    xi = linspace(-5,5, 14)'
+//    yi = f(xi)'
+//    subplot(236)
+//    x = linspace(-5,5,50)'
+//    for i = 1:length(x)
+//        y(i) = f(x(i)) - lagrange_poly(x(i),xi,yi)
+//    end
+//    plot(x,y)
