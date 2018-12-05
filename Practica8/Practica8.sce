@@ -1,8 +1,12 @@
+// Formula: (h/2)*[f(x0)+f(x1)]  
+// Error: - (h**3/12) * f(2)(c) 
 function y = trapecio(f,a,b)
     h = b-a
     y = h * (f(a)+f(b))/2 
 endfunction
 
+// Formula: (h/2) * [f(x0) + 2*f(x1) + ... + 2*f(xn-1) + f(xn)]
+// Error: -(h**2 * (b-a)/12) * f(2)(c)
 function y = trapecio_compuesto(f,a,b,n)
     y = 0
     h = (b-a) / n
@@ -13,11 +17,15 @@ function y = trapecio_compuesto(f,a,b,n)
     end
 endfunction
 
+// Formula: (h/3)*[f(x0)+4*f(x1)+f(x2)]
+// Error: - (h**5/90) * f(4)(c)
 function y = simpson(f,a,b)
     h = (b-a)/2
     y = (h/3)*(f(a) + 4*f((a+b)/2) + f(b))
 endfunction
 
+// Formula: (h/3) * [f(x0) + 4*f(x1) + 2*f(x2) + ... + 2*f(xn-2) + 4*f(xn-1) + f(xn)]
+// Error: -((h**4)*(b-a)/180) * f(4)(c)
 function y = simpson_compuesto(f,a,b,n)
     h = (b-a) / n
     l = a
@@ -28,6 +36,7 @@ function y = simpson_compuesto(f,a,b,n)
     end
     y = y * h/3
 endfunction
+
 
 function y = trapecio_doble(f,x1,x2,y1,y2)
     r1 = (f(x1,y1) + f(x2,y1))*(x2-x1)/2
@@ -97,14 +106,14 @@ endfunction
 //    deff('y = e(x)','y = x*sin(x)')
 //    
 //    deff('y = f(x)','y = (x**2)*(%e**x)')
-    
+//    
 //    ra = trapecio_compuesto(a,1,3,4), Ra = intg(1,3,a)
 //    rb = trapecio_compuesto(b,0,2,4), Rb = intg(0,2,b)
 //    rc = trapecio_compuesto(c,0,3,6), Rc = intg(0,3,c)
 //    rd = trapecio_compuesto(d,0,1,8), Rd = intg(0,1,d)
 //    re = trapecio_compuesto(e,0,2*%pi,8), Re = intg(0,2*%pi,e)
 //    rf = trapecio_compuesto(f,0,1,8), Rf = intg(0,1,f)
-    
+//    
 //    printf("Trapecio: %f\nSiclab: %f\nError : %f\n\n",ra,Ra,abs(Ra-ra))
 //    printf("Trapecio: %f\nSiclab: %f\nError : %f\n\n",rb,Rb,abs(Rb-rb))
 //    printf("Trapecio: %f\nSiclab: %f\nError : %f\n\n",rc,Rc,abs(Rc-rc))
@@ -121,14 +130,14 @@ endfunction
 //    rd = simpson_compuesto(d,0,1,8), Rd = intg(0,1,d)
 //    re = simpson_compuesto(e,0,2*%pi,8), Re = intg(0,2*%pi,e)
 //    rf = simpson_compuesto(f,0,1,8), Rf = intg(0,1,f)
-    
+//    
 //    printf("Simpson: %f\nSiclab: %f\nError : %f\n\n",ra,Ra,abs(Ra-ra))
 //    printf("Simpson: %f\nSiclab: %f\nError : %f\n\n",rb,Rb,abs(Rb-rb))
 //    printf("Simpson: %f\nSiclab: %f\nError : %f\n\n",rc,Rc,abs(Rc-rc))
 //    printf("Simpson: %f\nSiclab: %f\nError : %f\n\n",rd,Rd,abs(Rd-rd))
 //    printf("Simpson: %f\nSiclab: %f\nError : %f\n\n",re,Re,abs(Re-re))
 //    printf("Simpson: %f\nSiclab: %f\nError : %f\n\n",rf,Rf,abs(Rf-rf))
-//    
+    
     
     
 // Ejercicio 4
@@ -155,3 +164,45 @@ endfunction
 
 //r = trapecio_extendida_fuciones(f,f1,f2,-1,1,100,10)
 //disp(r)
+
+
+
+
+
+
+
+// Ejercicio 5 y 6 con intento de simplificar la funcion doble.
+
+
+function y = trapecio_compuesto_doble(f,f1,f2,a,b,n)
+    y = 0
+    h = (b-a) / n
+    l = a 
+    for i = 1:n
+        deff('r = g(y)','r = ff('+string(l)+',y)')
+        r1 = trapecio_compuesto(g,f1(l),f2(l+h),n)
+        deff('r = g(y)','r = ff('+string(l+h)+',y)')
+        r2 = trapecio_compuesto(g,f1(l),f2(l+h),n)
+        y = y + (r1+r2)*h/2
+        l = l + h
+    end
+endfunction
+
+
+//deff('r = ff(x,y)','r = sin(x+y)')
+//deff('r = f2(x)','r = 1')
+//deff('r = f1(x)','r = 0')
+//
+//r = trapecio_compuesto_doble(ff,f1,f2,0,2,50)
+//disp(r)
+//
+//deff('r = ff(x,y)','r = 1')
+//deff('r = f2(y)','r = sqrt(1-(y**2)) + 1')
+//deff('r = f1(y)','r = -1 * sqrt(1-(y**2)) + 1')
+//
+//r = trapecio_compuesto_doble(ff,f1,f2,-1,1,50)
+//disp(r)
+
+
+
+
