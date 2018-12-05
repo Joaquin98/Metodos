@@ -270,3 +270,21 @@ endfunction
 //        y(i) = f(x(i)) - lagrange_poly(x(i),xi,yi)
 //    end
 //    plot(x,y)
+
+
+
+
+// Ejercicio Parcial 2014
+
+//    deff('y = f1(x)','y = 1')
+//    deff('y = f2(x)','y = cos(2*%pi*x)')
+//    xi = [0,0.25,0.5,0.75]'
+//    yi = [2,1,0,1]'
+//    funciones = list(f1,f2)
+//    coef1 = minimos_cuadrados(xi,yi,funciones)
+//    deff('y = f1(x)','y = P(x,coef1,funciones)')
+//    
+//    x = linspace(-1,2,100)
+//    subplot(221)
+//    plot(x,f1(x))
+//    scatter(xi,yi,"red")
