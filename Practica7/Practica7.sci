@@ -24,6 +24,7 @@ function y = fi(x,xi,varargin)
     end
     y = 1
     for i = 1:n
+        disp(xi,i,xi(i))
         y = y * (x-xi(i))
     end
 endfunction
@@ -288,3 +289,15 @@ endfunction
 //    subplot(221)
 //    plot(x,f1(x))
 //    scatter(xi,yi,"red")
+
+
+//    xi = [-1,0,1,2,3]
+//    yi = [3,0,-1,1,2]
+//    
+//    x = linspace(-2,5,100)
+//    subplot(221)
+//    for i = 1:length(x)
+//        y(i) = lagrange_poly(x(i),xi,yi)
+//    end
+//    plot(x,y,"red")
+//    plot(xi,yi,"o")
