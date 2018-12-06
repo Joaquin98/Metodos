@@ -24,7 +24,7 @@ function y = fi(x,xi,varargin)
     end
     y = 1
     for i = 1:n
-        disp(xi,i,xi(i))
+//        disp(xi,i,xi(i))
         y = y * (x-xi(i))
     end
 endfunction
@@ -100,6 +100,21 @@ function coef = minimos_cuadrados_remonte(xi,yi,funciones)
     coef = remonte_u(R,Q'*yi)
 endfunction
 
+// ------ ERRORES ------ 
+
+function y = cota_error_interpolacion(x,xi,fcmax)
+    n = length(xi)
+    y = abs((fi(x,xi)/factorial(n)) * fcmax)
+endfunction
+
+function y = error_minimos_cuadrados(coef,xi,yi,funciones)
+    n = length(xi)
+    y = 0
+    for i = 1:n
+        y = y + (P(xi(i),coef,funciones) - yi(i)) **2
+    end
+endfunction
+
 
 // Ejercicio 1
 
@@ -125,7 +140,8 @@ endfunction
 //
 //    cotaErrorC = (fi(1/3,xi)/factorial(4))*1.8221    
 //    cotaErrorL = abs(fi(1/3,xi(2:3))/factorial(2)*1.4918)
-//    
+////  cotaErrorC = cota_error_interpolacion(1/3,xi,1.8221)
+////  cotaErrorL = cota_error_interpolacion(1/3,xi(2:3),1.4918)
 //    printf("Cota del error lineal: %f\n",cotaErrorL)
 //    printf("Cota del error cubica: %f",cotaErrorC) 
 
@@ -292,7 +308,7 @@ endfunction
 
 
 // Ejercicio Parcial 2014
-//
+
 //    deff('y = f1(x)','y = 1')
 //    deff('y = f2(x)','y = cos(2*%pi*x)')
 //    xi = [0,0.25,0.5,0.75]'
@@ -300,7 +316,8 @@ endfunction
 //    funciones = list(f1,f2)
 //    coef1 = minimos_cuadrados_remonte(xi,yi,funciones)
 //    deff('y = f1(x)','y = P(x,coef1,funciones)')
-//    
+//    err = error_minimos_cuadrados(coef1,xi,yi,funciones)
+//    printf("Error : %f \n",err)
 //    x = linspace(-1,2,100)
 //    subplot(221)
 //    plot(x,f1(x))
