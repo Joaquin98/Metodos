@@ -171,6 +171,13 @@ function raices = raices_chebyshev1(n)
     raices = roots(Chebyshev(n))
 endfunction
 
+function raices = raices_chebyshev_general(n,a,b)
+    raices = raices_chebyshev(n)
+    for i = 1:n
+        raices(i) = ((b+a) + raices(i)*(b-a))/2
+    end
+endfunction
+
 function raices = raices_chebyshev(n)
     for i = 0:n-1
         raices(i+1) = cos((i*2+1)*%pi/(2*n))    
@@ -382,7 +389,22 @@ endfunction
 //plot(x,y,"red")
 //plot(xi,yi,'x')
 
+// Ejercicio 11
 
+//x = linspace(0,%pi/2,100)
+//y = zeros(1,length(x))
+//xi = raices_chebyshev_general(4,0,%pi/2)
+//yi = zeros(1,length(xi))
+//for i = 1:length(xi)
+//    yi(i) = cos(xi(i))
+//end
+//
+//for i=1:length(x)
+//    y(i) = lagrange_poly(x(i),xi,yi)
+//end
+//
+//plot(x,y,"red")
+//plot(xi,yi,'x')
 
 // Ejercicio Parcial 2014
 
