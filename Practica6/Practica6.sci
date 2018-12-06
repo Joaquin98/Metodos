@@ -5,7 +5,7 @@
 
 
 function gerschgorin(A)
-    n  = size(A,"row")
+    n  = size(A,1)//Cambie size(A,'r') para version 5.5.2 scilab
     for i = 1:n
         suma = 0
         for j = 1:n
@@ -13,6 +13,7 @@ function gerschgorin(A)
             end
         end
         printf("| lambda - %0.2f | <= %0.2f \n",A(i,i),suma)
+        //| lambda - (Centro) | <= (Radio)
     end
 endfunction
 
