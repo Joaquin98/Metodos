@@ -167,6 +167,16 @@ endfunction
 //plot(x,y)
 //disp(roots(P))
 
+function raices = raices_chebyshev1(n)
+    raices = roots(Chebyshev(n))
+endfunction
+
+function raices = raices_chebyshev(n)
+    for i = 0:n-1
+        raices(i+1) = cos((i*2+1)*%pi/(2*n))    
+    end
+endfunction
+
 // Ejercicio 1
 
 //    // Para que sea lineal, usamos solo dos de los puntos.
@@ -355,6 +365,22 @@ endfunction
 //    end
 //    plot(x,y)
 
+// Ejercicio 10
+
+//x = linspace(-1,1,100)
+//y = zeros(1,length(x))
+//xi = raices_chebyshev(4)
+//yi = zeros(1,length(xi))
+//for i = 1:length(xi)
+//    yi(i) = %e**xi(i)
+//end
+//
+//for i=1:length(x)
+//    y(i) = lagrange_poly(x(i),xi,yi)
+//end
+//
+//plot(x,y,"red")
+//plot(xi,yi,'x')
 
 
 
