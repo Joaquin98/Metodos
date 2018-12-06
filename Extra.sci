@@ -27,6 +27,6 @@ deff("y = f(n)","y = (1/2**n) - (1/3**n)")
 deff("y = f(n)","y = 4**n/((n+2)*(n+4)*5**n)")
 deff("y = f(n)","y = -2/(3*(n+1)**2 + 3*(n+1))")
 deff("y = f(n)","y = factorial(n)/(n**n)")
-
+deff("y = f(n)","y = (-2)/((3*n**2)+(3*n))")
 //converge_sucesion(f,10)
-//converge_serie(f,100)
+converge_serie(f,100)

@@ -178,11 +178,11 @@ function y = trapecio_compuesto_doble(f,f1,f2,a,b,n)
     y = 0
     h = (b-a) / n
     l = a 
-    for i = 1:n
+    for i = 1:n-1
         deff('r = g(y)','r = ff('+string(l)+',y)')
-        r1 = trapecio_compuesto(g,f1(l),f2(l+h),n)
+        r1 = trapecio_compuesto(g,f1(l),f2(l),n)
         deff('r = g(y)','r = ff('+string(l+h)+',y)')
-        r2 = trapecio_compuesto(g,f1(l),f2(l+h),n)
+        r2 = trapecio_compuesto(g,f1(l+h),f2(l+h),n)
         y = y + (r1+r2)*h/2
         l = l + h
     end
