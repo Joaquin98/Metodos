@@ -84,6 +84,22 @@ function coef = minimos_cuadrados(xi,yi,funciones)
     coef = inv(R)*Q'*yi
 endfunction
 
+function s1 = remonte_u(A,b)
+    n = size(A,1)
+    x = (1:n)
+    x(n) = b(n) / A(n,n)
+    for i = n-1:-1:1
+        x(i) = (b(i) - A(i,i+1:n) * x(i+1:n)')/A(i,i)
+    end
+    s1 = x
+endfunction
+
+function coef = minimos_cuadrados_remonte(xi,yi,funciones)
+    M = matriz(xi,funciones)
+    [Q,R] = qr(M,"e")
+    coef = remonte_u(R,Q'*yi)
+endfunction
+
 
 // Ejercicio 1
 
@@ -157,13 +173,13 @@ endfunction
 //    yi = [1,1.004,1.31,1.117,1.223,1.422]'
 //    
 //    funciones3 = list(P0,P1,P2,P3)
-//    coef3 = minimos_cuadrados(xi,yi,funciones3)
+//    coef3 = minimos_cuadrados_remonte(xi,yi,funciones3)
 //    deff('y = f3(x)','y = P(x,coef3,funciones3)')
 //    funciones2 = list(P0,P1,P2)
-//    coef2 = minimos_cuadrados(xi,yi,funciones2)
+//    coef2 = minimos_cuadrados_remonte(xi,yi,funciones2)
 //    deff('y = f2(x)','y = P(x,coef2,funciones2)')
 //    funciones1 = list(P0,P1)
-//    coef1 = minimos_cuadrados(xi,yi,funciones1)
+//    coef1 = minimos_cuadrados_remonte(xi,yi,funciones1)
 //    deff('y = f1(x)','y = P(x,coef1,funciones1)')
 //    
 //    x = linspace(-0.2,1,100)
@@ -276,13 +292,13 @@ endfunction
 
 
 // Ejercicio Parcial 2014
-
+//
 //    deff('y = f1(x)','y = 1')
 //    deff('y = f2(x)','y = cos(2*%pi*x)')
 //    xi = [0,0.25,0.5,0.75]'
 //    yi = [2,1,0,1]'
 //    funciones = list(f1,f2)
-//    coef1 = minimos_cuadrados(xi,yi,funciones)
+//    coef1 = minimos_cuadrados_remonte(xi,yi,funciones)
 //    deff('y = f1(x)','y = P(x,coef1,funciones)')
 //    
 //    x = linspace(-1,2,100)
