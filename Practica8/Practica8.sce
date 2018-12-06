@@ -173,7 +173,7 @@ endfunction
 
 // Ejercicio 5 y 6 con intento de simplificar la funcion doble.
 
-
+warning('off')
 function y = trapecio_compuesto_doble(f,f1,f2,a,b,n)
     y = 0
     h = (b-a) / n

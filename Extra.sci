@@ -29,4 +29,35 @@ deff("y = f(n)","y = -2/(3*(n+1)**2 + 3*(n+1))")
 deff("y = f(n)","y = factorial(n)/(n**n)")
 deff("y = f(n)","y = (-2)/((3*n**2)+(3*n))")
 //converge_sucesion(f,10)
-converge_serie(f,100)
+//converge_serie(f,100)
+
+// Ver si an -> 0, sino diverge
+// Division an+1/an 1: nose <1: converge >1: diverge
+// Probar telescopica
+// Geometrica
+// Comparacion c.bn>an
+// raiz n, ingual division
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

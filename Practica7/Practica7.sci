@@ -115,6 +115,57 @@ function y = error_minimos_cuadrados(coef,xi,yi,funciones)
     end
 endfunction
 
+// ------ CHEBYSHEV ------ 
+
+function y = Tn(x,n)
+    T = zeros(1,n+1)
+    T(1) = 1
+    T(2) = x
+    for i = 3:n+1
+        T(i) = 2*x*T(i-1) - T(i-2)
+    end
+    y = T(n+1)
+endfunction
+
+//x = linspace(-1,1,1000)
+//y = zeros(1,length(x))
+//for i = 1:length(x)
+//    y(i) = Tn(x(i),40)
+//end 
+//plot(x,y')
+
+function P = Chebyshev(n)
+    T1 = zeros(1,n+1)
+    T2 = zeros(1,n+1)
+    T1(1) = 1
+    T2(2) = 1
+    for i = 2:n
+        Taux = T2
+        i = n+1
+        while i<>1
+            T2(i) = T2(i-1)*2
+            i = i-1
+        end
+        T2(1) = 0
+        T2 = T2 - T1
+        T1 = Taux
+    end
+    if n==0 then T = T1
+    else T = T2
+    end
+    P = poly(T,"x","coeff")
+endfunction
+
+
+//x = linspace(-1,1,1000)
+//y = zeros(1,length(x))
+//P = Chebyshev(5)
+//for i = 1:length(x)
+//    y(i) = horner(P,x(i))
+////    y(i) = fi(x(i),roots(P))
+//end 
+//plot(x,y)
+//disp(roots(P))
 
 // Ejercicio 1
 
