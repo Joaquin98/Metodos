@@ -269,13 +269,13 @@ endfunction
 //    x = linspace(-0.2,1,100)
 //    subplot(221)
 //    plot(x,f1(x))
-//    scatter(xi,yi,"red")
+//    plot(xi, yi, 'ro')
 //    subplot(222)
 //    plot(x,f2(x))
-//    scatter(xi,yi,"red")
+//    plot(xi, yi, 'ro')
 //    subplot(223)
 //    plot(x,f3(x))
-//    scatter(xi,yi,"red")
+//    plot(xi, yi, 'ro')
 
 
 // Ejercicio 8
@@ -301,15 +301,15 @@ endfunction
 //    x = linspace(3,8,100)
 //    subplot(221)
 //    plot(x,f1(x))
-//    scatter(xi,yi,"red")
+//    plot(xi, yi, 'ro')
 //    printf("Error Grado 1: %f\n",norm(f1(xi)-yi))
 //    subplot(222)
 //    plot(x,f2(x))
-//    scatter(xi,yi,"red")
+//    plot(xi, yi, 'ro')
 //    printf("Error Grado 2: %f\n",norm(f2(xi)-yi))
 //    subplot(223)
 //    plot(x,f3(x))
-//    scatter(xi,yi,"red")
+//    plot(xi, yi, 'ro')
 //    printf("Error Grado 3: %f\n",norm(f3(xi)-yi))
 
 // Ejercicio 9
@@ -321,7 +321,7 @@ endfunction
 //    subplot(231)
 //    x = linspace(-5,5,50)
 //    plot(x,lagrange_poly(x,xi,yi))
-//    scatter(xi,yi,"red")
+//    plot(xi, yi, 'ro')
 //    
 //    xi = linspace(-5,5,4)'
 //    yi = f(xi)'
@@ -331,7 +331,7 @@ endfunction
 //        y(i) = lagrange_poly(x(i),xi,yi)
 //    end
 //    plot(x,y)
-//    scatter(xi,yi,"red")
+//    plot(xi, yi, 'ro')
 //    
 //    xi = linspace(-5,5,6)'
 //    yi = f(xi)'
@@ -341,7 +341,7 @@ endfunction
 //        y(i) = lagrange_poly(x(i),xi,yi)
 //    end
 //    plot(x,y)
-//    scatter(xi,yi,"red")    
+//    plot(xi, yi, 'ro')    
 //    
 //    xi = linspace(-5,5,10)'
 //    yi = f(xi)'
@@ -351,7 +351,7 @@ endfunction
 //        y(i) = lagrange_poly(x(i),xi,yi)
 //    end
 //    plot(x,y)
-//    scatter(xi,yi,"red")
+//    plot(xi, yi, 'ro')
 //        
 //    xi = linspace(-5,5,14)'
 //    yi = f(xi)'
@@ -361,7 +361,7 @@ endfunction
 //        y(i) = lagrange_poly(x(i),xi,yi)
 //    end
 //    plot(x,y)
-//    scatter(xi,yi,"red")
+//    plot(xi, yi, 'ro')
 //    
 //    xi = linspace(-5,5, 14)'
 //    yi = f(xi)'
@@ -372,8 +372,8 @@ endfunction
 //    end
 //    plot(x,y)
 
-// Ejercicio 10
-
+//// Ejercicio 10
+//
 //x = linspace(-1,1,100)
 //y = zeros(1,length(x))
 //xi = raices_chebyshev(4)
@@ -406,6 +406,16 @@ endfunction
 //plot(x,y,"red")
 //plot(xi,yi,'x')
 
+
+
+
+
+
+
+
+
+
+
 // Ejercicio Parcial 2014
 
 //    deff('y = f1(x)','y = 1')
@@ -420,7 +430,7 @@ endfunction
 //    x = linspace(-1,2,100)
 //    subplot(221)
 //    plot(x,f1(x))
-//    scatter(xi,yi,"red")
+//    plot(xi, yi, 'ro')
 
 
 //    xi = [-1,0,1,2,3]

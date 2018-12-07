@@ -43,12 +43,17 @@ deff("y = f(n)","y = (-2)/((3*n**2)+(3*n))")
 //converge_sucesion(f,10)
 //converge_serie(f,100)
 
-// Ver si an -> 0, sino diverge
-// Division an+1/an 1: nose <1: converge >1: diverge
-// Probar telescopica
-// Geometrica
-// Comparacion c.bn>an
-// raiz n, ingual division
+// 1- Ver si an -> 0, sino diverge
+// 2- Division an+1/an 1: nose <1: converge >1: diverge
+// 3- Probar telescopica. Recordar que 1/(n*(n+k)) = (1/k)*((1/n) - (1/n+k)).
+//    Si s(n) = sum(a(n)) con a(n) = b(n) - b(n+1), s(n) converge sii b(n) converge. En tal caso,
+//    la suma es s(inf) = b(1) - lim(x->inf) b(n).
+// 4- Geometrica. Recordar que converge solo si abs(r)<1, S(n) = (1-(r**(n+1)))/(1-r), S(inf) = 1/(1-r)
+// 5- Comparacion c.bn>an
+// 6- raiz n, igual division. Recordar que lim(x->inf) (n**(1/n)) = lim(x->inf) e**(ln(n**(1/n))) =
+//    = lim(x->inf) e**((1/n)*ln(n)) = e**(lim(x->inf) ((1/n)*ln(n)))
+//
+// Recordar que la serie armonica, s(n) = sum(1/n), diverge y que 1/2 <= S(2*n) - S(n)
 
 // Derivadas
 // Funcion  Derivada
@@ -74,9 +79,6 @@ deff("y = f(n)","y = (-2)/((3*n**2)+(3*n))")
 // 1/f      -f'/(f**2)
 // f(g(x))  f'(g(x))*g'(x)
 
-
-
-
 // Integrales
 // Funcion  Primitiva
 // a        ax
@@ -98,24 +100,44 @@ deff("y = f(n)","y = (-2)/((3*n**2)+(3*n))")
 // Elegir u en el siguiente orden de prioridad: inversa trigonometrica,
 // logaritmica, polinomio, trigonometrica, exponencial.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// Q1(x1) ... Qn(x1)    a1      y1
+//   .  .       .       .       .
+//   .    .     .       .   =   .
+//   .      .   .       .       .
+// Q1(xn) ... Qn(xn)    an      yn
+// 
+// Lagrange
+//
+//          n   (x -xi)
+// Lk(x) = mult -------
+//         i=0  (xk-xi)
+//        i!=k
+// 
+// P(x) = L0(x)*y0 + ... + Ln(x)*yn
+// P(xi) = yi
+// 
+// Newton
+//
+//     f[x1,...,xk] - f[x0,...,x(k-1)]
+// D = -------------------------------
+//                xk  -  x0
+//
+// D0
+// f(x0)    D1
+//          f[x0,x1]    D2              
+// f(x1)                f[x0,x1,x2]     D3
+//          f[x1,x2]                    f[x0,x1,x2,x3]
+// f(x2)                f[x1,x2,x3]
+//          f[x2,x3]
+// f(x3)
+// 
+// P(x) = D0 + D1*(x-x0) + ... + Dn*(x-x0)*(x-x1)* ... *(x-x(n-1))
+// 
+// Chebyshev
+// 
+// xi = (b-a)/2 + ((b-a)/2)*cos( ((2*i - 1)*%pi) / 2*(n+1))
+//
+// Minimos cuadrados
+//
+// [sum(j=1,m) Q1(xj)*Qi(xj)]*a1 + ... + [sum(j=1,m) Qk(xj)*Qi(xj)]*ak = [sum(j=1,m) yj*Qi(xj)]
+// m de estas ecuaciones (para m puntos y k funciones)
